@@ -5,7 +5,7 @@ const reactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      default: () => new TypeError.ObjectId(),
+      default: () => new Types.ObjectId(),
     },
     reactionBody: {
       type: String,
@@ -37,7 +37,7 @@ const thoughtSchema = new Schema(
       maxlength: 280,
     },
     createdAt: {
-      type: dateFormat,
+      type: Date,
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },

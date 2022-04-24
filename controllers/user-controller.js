@@ -5,7 +5,7 @@ const userController = {
   getAllUsers(req, res) {
     User.find({})
       .populate({
-        path: "person",
+        path: "thoughts",
         select: "-__v",
       })
       .select("-__v")
@@ -21,21 +21,16 @@ const userController = {
   getUserId({ params }, res) {
     User.findOne({ _id: params.id })
       .populate({
-        path: "person",
+        path: "thoughts",
         select: "-__v",
       })
       .select("-__v")
       .then((dbUser) => {
-        // If there is no user found
-        if (!dbUser) {
-          res.status(404).json({ message: "No user found w/this ID" });
-          return;
-        }
         res.json(dbUser);
       })
       .catch((err) => {
         console.log(err);
-        res.status(400).json(err);
+        res.status(400).json({message: "No user found w/this ID"})
       });
   },
 
@@ -54,7 +49,7 @@ const userController = {
           res.status(404).json({ message: "No user found w/this ID" });
           return;
         }
-        res.json(dbUserData);
+        res.json(dbUser);
       })
       .catch((err) => res.status(400).json(err));
   },
@@ -67,7 +62,7 @@ const userController = {
           res.status(404).json({ message: "No user found w/this ID" });
           return;
         }
-        res.json(dbUserData);
+        res.json(dbUser);
       })
       .catch((err) => res.status(400).json(err));
   },
@@ -79,7 +74,7 @@ const userController = {
       { $addToSet: { friends: params.friendsId } },
       { new: true }
     )
-      .then((dbUserData) => res.json(dbUserData))
+      .then((dbUser) => res.json(dbUser))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -90,12 +85,12 @@ const userController = {
       { $pull: { friends: params.friendsId } },
       { new: true }
     )
-      .then((dbUserData) => {
-        if (!dbUserData) {
+      .then((dbUser) => {
+        if (!dbUser) {
           res.status(404).json({ message: "no user found with this ID" });
           return;
         }
-        res.json(dbUserData);
+        res.json(dbUser);
       })
       .catch((err) => res.status(400).json(err));
   },

@@ -13,7 +13,7 @@ const userSchema = new Schema(
       unique: true,
       required: true,
       match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
         "Please enter a valid email address",
       ],
     },
@@ -32,8 +32,8 @@ const userSchema = new Schema(
   },
   {
     toJSON: {
-      virtual: true,
-      //   getters: true,
+      virtuals: true,
+      getters: true,
     },
     id: false,
   }
