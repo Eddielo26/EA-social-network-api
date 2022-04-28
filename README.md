@@ -14,7 +14,9 @@
 
 
 # Description
-
+* A Social network API application capable of creating a new user and adding and removing freinds. 
+* Users can share their thoughts and react to friends thoughts 
+* This application uses Express, Node, MongoDB and Mongoose to allow users, friends, thoughts and reactions to be created, updated and removed
 
 # Video
 
